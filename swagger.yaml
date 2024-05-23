@@ -103,19 +103,28 @@ paths:
           description: Internal Server Error
 
   # **** MES ENDPOINTS **** : 
-  /user/balance:
+
+  
+  #Fetch monthly transactions
+  /user/transactions:
     get:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: Fetch User Balance
-      description: API for fetching the user's current balance
+      summary: Fetch Monthly Transactions
+      description: API for fetching the user's transactions for the current month
+      parameters:
+        - in: path
+          name: month
+          description: Month for which to fetch transactions (format: YYYY-MM)
+          required: true
+          type: string
       produces:
         - application/json
       responses:
         '200':
-          description: Balance retrieved successfully
+          description: Transactions retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -123,31 +132,6 @@ paths:
         '500':
           description: Internal Server Error
 
- #Transfer Money
-  /user/transfer:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: Transfer Money
-      description: API for transferring money to another account
-      parameters:
-        - in: body
-          name: body
-          description: Transfer details
-          required: true
-          schema:
-            $ref: '#/definitions/ApiResponse'
-      responses:
-        '200':
-          description: Transfer completed successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid transfer details
-        '500':
-          description: Internal Server Error
 
   #Fetch specific transaction
   /user/transactions/{transactionId}:
@@ -176,7 +160,39 @@ paths:
         '500':
           description: Internal Server Error
 
- 
+    #d'ajouter, de modifier ou de supprimer des informations sur une transaction (on ne supprimera ou n'ajoutera pas de transaction).
+    /user/transactions/{transactionId}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Update Transaction Details
+      description: API for updating the details of a specific transaction
+      parameters:
+        - in: path
+          name: transactionId
+          description: Transaction ID
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
 
 
 securityDefinitions:
