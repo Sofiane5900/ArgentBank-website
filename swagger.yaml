@@ -15,6 +15,7 @@ paths:
         - User Module
       summary: Login
       description: API for Login test
+      description: API for Login
       parameters:
         - in: body
           name: body
@@ -101,6 +102,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+<<<<<<< HEAD
 
   # **** MES ENDPOINTS **** : 
   /user/balance:
@@ -177,7 +179,6 @@ paths:
           description: Internal Server Error
 
  
-
 
 securityDefinitions:
   Bearer:
